@@ -1,13 +1,16 @@
 import { Image, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import {useState} from 'react';
 
 export default function Post({ post }) {
 	let liked = true;
-	let likes = 1;
+	let likesNum = 0;
 
 	const handleLike = () => {
 		console.log('liked');
 	};
+
+	const [likes, setLikes] = useState(0);
 
 	return (
 		<View style={styles.container}>
@@ -33,7 +36,12 @@ export default function Post({ post }) {
 				</View>
 			</View>
 			<View style={styles.likes}>
-				<TouchableOpacity onPress={handleLike}>
+				<TouchableOpacity 
+					onPress={() => setLikes(likes + 1)}>
+				<TouchableOpacity>
+
+
+				</TouchableOpacity>
 					<Ionicons
 						name={liked ? 'heart' : 'heart-outline'}
 						size={16}
@@ -48,7 +56,7 @@ export default function Post({ post }) {
 
 const styles = StyleSheet.create({
 	container: {
-		backgroundColor: 'black',
+		backgroundColor: '#000',
 		paddingLeft: 20,
 		paddingRight: 20
 	},
