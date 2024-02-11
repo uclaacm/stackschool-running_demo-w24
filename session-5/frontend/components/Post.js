@@ -3,7 +3,7 @@ import { Image, View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { URL } from '../utils';
 
-export default function Post ({ post, user }) {
+export default function Post ({ post, userId }) {
   const [loading, setLoading] = useState(true);
   const [songUser, setSongUser] = useState();
   const [likes, setLikes] = useState(post.likes);
@@ -20,7 +20,7 @@ export default function Post ({ post, user }) {
 
   async function setLike() {
     try {
-      const response = await fetch(`${URL}/liked/song?songId=${post.id}&userId=${user.id}`);
+      const response = await fetch(`${URL}/liked/song?songId=${post.id}&userId=${userId}`);
       const data = await response.json();
       setLiked(data.has_liked);
     } catch (error) {
@@ -35,7 +35,7 @@ export default function Post ({ post, user }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ songId: post.id, userId: user.id }),
+        body: JSON.stringify({ songId: post.id, userId: userId }),
       });
 
         const updatedPost = await response.json();
@@ -51,11 +51,11 @@ export default function Post ({ post, user }) {
   }, []);
 
   useEffect(() => {
-    if(user)
+    if(userId)
     {
       setLike();
     }
-  }, [user])
+  }, [userId])
 
   useEffect(() => {
     setLikes(post.likes);

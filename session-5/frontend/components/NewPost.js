@@ -36,6 +36,7 @@ export default function NewPost({ visible, onClose, onPost }) {
 
       const createdSong = await response.json();
       console.log('New Post:', createdSong);
+      onPost();
     } catch (error) {
       console.error('Error creating new post:', error.message);
       alert('Failed to create a new post. Please try again.');

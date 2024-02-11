@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Post from '../components/Post';
@@ -10,40 +9,17 @@ export default function HomeScreen({ navigation }) {
   const [isNewPostModalVisible, setIsNewPostModalVisible] = useState(false);
   const [loading, setLoading] = useState(true);
   const [songs, setSongs] = useState([]);
-  const [user, setUser] = useState();
+  const userId = getUser();
 
   useEffect(() => {
-    Promise.all([fetchSongs()])
-      .then(() => {
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error in promise:', error.message);
-      });
+    fetchSongs()
+    .then(() => {
+      setLoading(false);
+    })
+    .catch((error) => {
+      console.error('Error in promise:', error.message);
+    });
   }, []);
-
-  useFocusEffect(
-    useCallback(() => {
-      const fetchUserData = async () => {
-        const userId = getUser();
-
-        try {
-          const response = await fetch(`${URL}/users/${userId}`);
-          const data = await response.json();
-          if(data) {
-            setUser(data);
-          } else {
-            console.error('Error fetching user data');
-          }
-        } catch (error) {
-          console.error('Error getting user by ID:', error.message);
-          return null;
-        }
-      };
-
-      fetchUserData();
-    }, [])
-  );
 
   async function fetchSongs() {
     try {
@@ -53,10 +29,6 @@ export default function HomeScreen({ navigation }) {
     } catch (error) {
       console.error('Error fetching songs:', error.message);
     }
-  };
-
-  async function handlePost(newSong) {
-    setSongs((prevSongs) => [newSong, ...prevSongs]);
   };
 
   return (
@@ -78,7 +50,7 @@ export default function HomeScreen({ navigation }) {
         <FlatList
           data={songs.sort((a, b) => new Date(b.date) - new Date(a.date))}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => <Post post={item} user={user}/>}
+          renderItem={({ item }) => <Post post={item} userId={userId}/>}
           style={{ marginTop: 15, marginBottom: 50}}
         />      
       ) : (
@@ -89,7 +61,7 @@ export default function HomeScreen({ navigation }) {
       <NewPost
         visible={isNewPostModalVisible}
         onClose={() => setIsNewPostModalVisible(false)}
-        onPost={handlePost}
+        onPost={fetchSongs}
       />
     </View>
   );
