@@ -7,6 +7,7 @@ export default function NewPost({ visible, onClose, onPost }) {
   const [title, setTitle] = useState('');
   const [artist, setArtist] = useState('');
 
+  // START: ADDED DURING DEMO
   async function handlePost() {
     if (!title || !artist) {
       alert('Please fill in all fields');
@@ -44,6 +45,7 @@ export default function NewPost({ visible, onClose, onPost }) {
       handleClose();
     }
   };
+  // END: ADDED DURING DEMO
 
   function handleClose() {
     setTitle('');

@@ -7,10 +7,13 @@ import { getUser, URL } from '../utils';
 
 export default function HomeScreen({ navigation }) {
   const [isNewPostModalVisible, setIsNewPostModalVisible] = useState(false);
+  // START: ADDED DURING DEMO
   const [loading, setLoading] = useState(true);
   const [songs, setSongs] = useState([]);
+  // END: ADDED DURING DEMO
   const userId = getUser();
 
+  // START: ADDED DURING DEMO
   useEffect(() => {
     fetchSongs()
     .then(() => {
@@ -30,6 +33,7 @@ export default function HomeScreen({ navigation }) {
       console.error('Error fetching songs:', error.message);
     }
   };
+  // END: ADDED DURING DEMO
 
   return (
     <View style={styles.container}>
@@ -47,12 +51,10 @@ export default function HomeScreen({ navigation }) {
       {loading ? (
         <Text>Loading...</Text>
       ) : songs !== null && songs.length > 0 ? (
-        <FlatList
-          data={songs.sort((a, b) => new Date(b.date) - new Date(a.date))}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => <Post post={item} userId={userId}/>}
-          style={{ marginTop: 15, marginBottom: 50}}
-        />      
+        // START: ADDED DURING DEMO
+        songs.sort((a, b) => new Date(b.date) - new Date(a.date))
+             .map((song) => <Post key={song.id} post={song} userId={userId}/>)
+        // END: ADDED DURING DEMO
       ) : (
         <View style={styles.noSongs}>
           <Text style={styles.noSongsText}>No songs available.</Text>
