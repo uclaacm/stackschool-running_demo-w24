@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // IMPORTANT
 // if you are on windows or are getting network errors in expo, make sure to change "localhost" to your local ipv4 address!
 // use "ipconfig" in cmd to find your ipv4 address or "ifconfig" in terminal / mac
-export const URL = 'http://169.232.102.164:8000';
+export const URL = 'http://localhost:8000';
 
 // IMPORTANT
 // this is not secure, but we are showing off a simple asyncstorage session management to give a basic idea of how sessions work
