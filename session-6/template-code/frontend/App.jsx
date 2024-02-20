@@ -3,11 +3,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "./screens/HomeScreen";
 
 // ========================================START OF DEMO========================================
-// import { React, useState, useEffect } from "react";
-// import { StatusBar } from "react-native";
-// import LoginScreen from "./screens/LoginScreen";
-// import RegisterScreen from "./screens/RegisterScreen";
-// import { getUser } from "./utils";
+import { React, useState, useEffect } from "react";
+import { StatusBar } from "react-native";
+import LoginScreen from "./screens/LoginScreen";
+import RegisterScreen from "./screens/RegisterScreen";
+import { getUser } from "./utils";
 
 // run npx expo install expo-splash-screen
 // also run npx expo install --fix
@@ -23,7 +23,7 @@ export default function App() {
   });
 
   // ========================================START OF DEMO========================================
-  // const [initialRoute, setInitialRoute] = useState("");
+  const [initialRoute, setInitialRoute] = useState("");
 
   // check if user was logged in previously, set initial route accordingly
   // useEffect(() => {
@@ -72,8 +72,8 @@ export default function App() {
           headerShown: false,
         }}
       >
-        {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
-        {/* <Stack.Screen name="Register" component={RegisterScreen} /> */}
+        {/* <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} /> */}
         <Stack.Screen name="Home" component={HomeScreen} />
       </Stack.Navigator>
       {/* =========================================END OF DEMO========================================= */}

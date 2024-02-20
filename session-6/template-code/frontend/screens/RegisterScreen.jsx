@@ -11,12 +11,12 @@ import {
 import { URL } from "../utils";
 
 export default function RegisterScreen({ navigation }) {
-  // const [email, setEmail] = useState("");
-  // const [username, setUsername] = useState("");
-  // const [first, setFirst] = useState("");
-  // const [last, setLast] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirm, setConfirm] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [first, setFirst] = useState("");
+  const [last, setLast] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
 
   // const isEmailValid = (email) => {
   //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

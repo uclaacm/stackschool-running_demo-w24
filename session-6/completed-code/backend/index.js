@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+app.use(express.json()) // => req.body
 const pool = require("./db"); // needed for db access
 
 // ========================================START OF DEMO========================================
@@ -7,14 +8,24 @@ const pool = require("./db"); // needed for db access
 // run npm install bcrypt
 const bcrypt = require('bcrypt');
 
-// =========================================END OF DEMO=========================================
+// run openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
+// to generate a self-signed certificate
 
-app.listen(8000, () => {
+const https = require('https');
+const fs = require('fs');
+
+// // read the key and cert that you generated
+const key = fs.readFileSync('./key.pem');
+const cert = fs.readFileSync('./cert.pem');
+
+// // create the HTTPS server
+const server = https.createServer({ key, cert }, app);
+
+server.listen(8000, () => {
   console.log("Server is listening on port 8000")
 });
 
-app.use(express.json()) // => req.body
-
+// =========================================END OF DEMO=========================================
 
 // ROUTES
 
@@ -38,6 +49,7 @@ app.post("/register", async (req, res) => {
       return res.status(400).json({ error: 'Username already exists.' });
     }
 
+    // hashedPassword = password;
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await pool.query(
@@ -93,6 +105,19 @@ app.get("/users/all", async (req, res) => {
   }
 });
 
+// delete a user
+app.delete("/users/delete/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const deleteUser = await pool.query("DELETE FROM users WHERE id = $1", [userId]);
+    res.json("User was successfully deleted.");
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+// =========================================END OF DEMO=========================================
+
 // get user by id
 app.get('/users/:userId', async (req, res) => {
   const { userId } = req.params;
@@ -112,17 +137,6 @@ app.get('/users/:userId', async (req, res) => {
   }
 });
 
-// delete a user
-app.delete("/users/delete/:userId", async (req, res) => {
-  try {
-    const { userId } = req.params;
-    const deleteUser = await pool.query("DELETE FROM users WHERE id = $1", [userId]);
-    res.json("User was successfully deleted.");
-  } catch (err) {
-    console.error(err.message);
-  }
-});
-
 // get all of a user's songs
 app.get('/users/songs/:userId', async (req, res) => {
   const { userId } = req.params;
@@ -137,8 +151,6 @@ app.get('/users/songs/:userId', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-// =========================================END OF DEMO=========================================
 
 // SONGS
 

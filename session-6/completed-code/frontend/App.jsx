@@ -7,23 +7,23 @@ import { React, useState, useEffect } from "react";
 import { StatusBar } from "react-native";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
-// import ProfileScreen from './screens/ProfileScreen';
+import { getUser } from "./utils";
 
 // run npx expo install expo-splash-screen
 // also run npx expo install --fix
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
-import { getUser } from "./utils";
 // =========================================END OF DEMO=========================================
 
 const Stack = createStackNavigator();
 
 export default function App() {
-  // ========================================START OF DEMO========================================
-  const [initialRoute, setInitialRoute] = useState("");
   const [fontsLoaded] = useFonts({
     "Inter-SemiBold": require("./assets/fonts/Inter-SemiBold.ttf"),
   });
+
+  // ========================================START OF DEMO========================================
+  const [initialRoute, setInitialRoute] = useState("");
 
   // check if user was logged in previously, set initial route accordingly
   useEffect(() => {
@@ -66,6 +66,7 @@ export default function App() {
       <StatusBar barStyle="auto" />
       {/* set initial route based on user session, headerShown = true is useful for debugging */}
       <Stack.Navigator
+        // initialRouteName="Home"
         initialRouteName={initialRoute}
         screenOptions={{
           headerShown: false,

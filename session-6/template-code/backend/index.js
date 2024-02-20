@@ -6,13 +6,13 @@ const pool = require("./db"); // needed for db access
 // ========================================START OF DEMO========================================
 
 // run npm install bcrypt
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 // run openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
 // to generate a self-signed certificate
 
-// const https = require('https');
-// const fs = require('fs');
+const https = require('https');
+const fs = require('fs');
 
 // // read the key and cert that you generated
 // const key = fs.readFileSync('./key.pem');
@@ -21,9 +21,9 @@ const pool = require("./db"); // needed for db access
 // // create the HTTPS server
 // const server = https.createServer({ key, cert }, app);
 
-// server.listen(8000, () => {
-//   console.log("Server is listening on port 8000")
-// });
+app.listen(8000, () => {
+  console.log("Server is listening on port 8000")
+});
 
 // =========================================END OF DEMO=========================================
 

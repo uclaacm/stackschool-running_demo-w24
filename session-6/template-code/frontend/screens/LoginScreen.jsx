@@ -12,8 +12,8 @@ import {
 import { storeUser, URL } from "../utils";
 
 export default function LoginScreen({ navigation }) {
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   // clear username and password fields when the screen is focused
   // useFocusEffect(
