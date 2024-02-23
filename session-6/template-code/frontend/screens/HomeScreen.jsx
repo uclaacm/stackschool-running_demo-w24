@@ -10,21 +10,31 @@ export default function HomeScreen({ navigation }) {
 
   const [loading, setLoading] = useState(true);
   const [songs, setSongs] = useState([]);
-  const userId = getUser();
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    fetchSongs()
-      .then(() => {
+    async function fetchData() {
+      try {
+        const userId = await getUser();
+        setUser(Number(userId));
         setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error in promise:", error.message);
-      });
+      } catch (error) {
+        console.error("Error fetching user:", error.message);
+      }
+    }
+
+    fetchData();
   }, []);
+
+  useEffect(() => {
+    if (user !== null) {
+      fetchSongs();
+    }
+  }, [user]);
 
   async function fetchSongs() {
     try {
-      const response = await fetch(`${URL}/songs/all`);
+      const response = await fetch(`${URL}/users/songs/${user}`);
       const data = await response.json();
       setSongs(data);
     } catch (error) {

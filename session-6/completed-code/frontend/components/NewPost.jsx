@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,9 +11,22 @@ import {
 import { getUser, URL } from "../utils";
 
 export default function NewPost({ visible, onClose, onPost }) {
-  const userId = getUser();
+  const [userId, setUserId] = useState();
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const user = await getUser();
+
+      if (user) {
+        setUserId(user);
+      } else {
+        console.error("Error fetching user data");
+      }
+    };
+    fetchUserData();
+  }, []);
 
   async function handlePost() {
     if (!title || !artist) {

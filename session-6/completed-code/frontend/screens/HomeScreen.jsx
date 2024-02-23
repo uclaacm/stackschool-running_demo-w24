@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Post from "../components/Post";
 import NewPost from "../components/NewPost";
@@ -7,24 +7,33 @@ import { getUser, clearUser, URL } from "../utils";
 
 export default function HomeScreen({ navigation }) {
   const [isNewPostModalVisible, setIsNewPostModalVisible] = useState(false);
-
   const [loading, setLoading] = useState(true);
   const [songs, setSongs] = useState([]);
-  const userId = getUser();
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    fetchSongs()
-      .then(() => {
+    async function fetchData() {
+      try {
+        const userId = await getUser();
+        setUser(Number(userId));
         setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error in promise:", error.message);
-      });
+      } catch (error) {
+        console.error("Error fetching user:", error.message);
+      }
+    }
+
+    fetchData();
   }, []);
+
+  useEffect(() => {
+    if (user !== null) {
+      fetchSongs();
+    }
+  }, [user]);
 
   async function fetchSongs() {
     try {
-      const response = await fetch(`${URL}/songs/all`);
+      const response = await fetch(`${URL}/users/songs/${user}`);
       const data = await response.json();
       setSongs(data);
     } catch (error) {
@@ -44,18 +53,15 @@ export default function HomeScreen({ navigation }) {
           }}
         />
         <Text style={styles.headerText}>SoundsRight.</Text>
-        {/* // ========================================START OF DEMO======================================== */}
         <Ionicons
           name="ellipsis-horizontal"
           size={24}
           color="#fff"
           onPress={() => {
-            // Log out of account and clear user from async storage
             clearUser();
             navigation.navigate("Login");
           }}
         />
-        {/* // ========================================END OF DEMO======================================== */}
       </View>
 
       {loading ? (
@@ -63,7 +69,7 @@ export default function HomeScreen({ navigation }) {
       ) : songs !== null && songs.length > 0 ? (
         songs
           .sort((a, b) => new Date(b.date) - new Date(a.date))
-          .map((song) => <Post key={song.id} post={song} userId={userId} />)
+          .map((song) => <Post key={song.id} post={song} userId={user} />)
       ) : (
         <View style={styles.noSongs}>
           <Text style={styles.noSongsText}>No songs available.</Text>

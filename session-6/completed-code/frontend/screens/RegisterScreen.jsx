@@ -60,7 +60,7 @@ export default function RegisterScreen({ navigation }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, username, first, last, password, image }),
+        body: JSON.stringify({ email, username, first, last, password }),
       });
       if (!response.ok) {
         const data = await response.json();
