@@ -2,18 +2,16 @@
 // if you are on windows or are getting network errors in expo, make sure to change "localhost" to your local ipv4 address!
 // use "ipconfig" in cmd to find your ipv4 address or "ifconfig" in terminal / mac
 // make sure to change to https if you are using https
-export const URL = 'http://localhost:8000';
-
+export const URL = "http://localhost:8000";
 
 // ========================================START OF DEMO========================================
 
 // run npm install @react-native-async-storage/async-storage
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // IMPORTANT
 // this is not secure, but we are showing off a simple asyncstorage session management to give a basic idea of how sessions work
-const USER_KEY = 'user';
+const USER_KEY = "user";
 
 // SESSION MANAGEMENT
 
@@ -28,14 +26,14 @@ const USER_KEY = 'user';
 
 // get userkey from asyncstorage
 export const getUser = async () => {
-    return 1;
-    // try {
-    //     const user = await AsyncStorage.getItem(USER_KEY);
-    //     return user ? JSON.parse(user) : null;
-    // } catch (error) {
-    //     console.error('Error getting user:', error);
-    //     return null;
-    // }
+  return 1;
+  // try {
+  //     const user = await AsyncStorage.getItem(USER_KEY);
+  //     return user ? JSON.parse(user) : null;
+  // } catch (error) {
+  //     console.error('Error getting user:', error);
+  //     return null;
+  // }
 };
 
 // clear userkey from asyncstorage

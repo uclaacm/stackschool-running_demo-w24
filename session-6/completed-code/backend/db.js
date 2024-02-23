@@ -5,11 +5,11 @@ const Pool = require("pg").Pool;
 // ALTER USER user_name WITH PASSWORD 'new_password';
 
 const pool = new Pool({
-    user: "postgres",
-    password: "root",
-    database: "sr_database_demo",
-    host: "localhost",
-    port: 5432
-})
+  user: "postgres",
+  password: "root",
+  database: "sr_database",
+  host: "localhost",
+  port: 5432,
+});
 
 module.exports = pool;
