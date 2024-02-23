@@ -15,8 +15,9 @@ export default function HomeScreen({ navigation }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const userId = await getUser();
-        setUser(Number(userId));
+        // const userId = await getUser();
+        // if (!userId) return;
+        // setUser(Number(userId));
         setLoading(false);
       } catch (error) {
         console.error("Error fetching user:", error.message);
@@ -26,16 +27,17 @@ export default function HomeScreen({ navigation }) {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    if (user !== null) {
-      fetchSongs();
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user !== null) {
+  //     fetchSongs();
+  //   }
+  // }, [user]);
 
   async function fetchSongs() {
-    if (!user) return;
+    // if (!user) return;
     try {
-      const response = await fetch(`${URL}/users/songs/${user}`);
+      // const response = await fetch(`${URL}/users/songs/${user}`);
+      const response = await fetch(`${URL}/songs/all`);
       const data = await response.json();
       setSongs(data);
     } catch (error) {

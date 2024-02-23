@@ -2,7 +2,7 @@
 // if you are on windows or are getting network errors in expo, make sure to change "localhost" to your local ipv4 address!
 // use "ipconfig" in cmd to find your ipv4 address or "ifconfig" in terminal / mac
 // make sure to change to https if you are using https
-export const URL = "http://localhost:8000";
+export const URL = "http://10.152.160.220:8000";
 
 // ========================================START OF DEMO========================================
 
@@ -31,7 +31,7 @@ export const getUser = async () => {
   //     const user = await AsyncStorage.getItem(USER_KEY);
   //     return user ? JSON.parse(user) : null;
   // } catch (error) {
-  //     console.error('Error getting user:', error);
+  //     console.error('Error getting Wuser:', error);
   //     return null;
   // }
 };
