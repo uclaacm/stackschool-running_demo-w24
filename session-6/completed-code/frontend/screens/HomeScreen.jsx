@@ -32,6 +32,7 @@ export default function HomeScreen({ navigation }) {
   }, [user]);
 
   async function fetchSongs() {
+    if (!user) return;
     try {
       const response = await fetch(`${URL}/users/songs/${user}`);
       const data = await response.json();

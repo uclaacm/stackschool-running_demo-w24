@@ -1,7 +1,7 @@
 // IMPORTANT
 // if you are on windows or are getting network errors in expo, make sure to change "localhost" to your local ipv4 address!
 // use "ipconfig" in cmd to find your ipv4 address or "ifconfig" in terminal / mac
-export const URL = "http://10.152.160.220:8000";
+export const URL = "http://localhost:8000";
 
 // ========================================START OF DEMO========================================
 
