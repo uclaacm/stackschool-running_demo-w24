@@ -13,17 +13,17 @@ export default function HomeScreen({ navigation }) {
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(true);
   const [songs, setSongs] = useState([]);
-  const [accessToken, setAccessToken] = useState();
-
-  useEffect(() => {
-    Promise.all([fetchSongs(), fetchAccessToken()])
-      .then(() => {
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error in promise:', error.message);
-      });
-  }, []);
+  // const [accessToken, setAccessToken] = useState();
+// fetch the access token
+  // useEffect(() => {
+  //   Promise.all([fetchSongs(), fetchAccessToken()])
+  //     .then(() => {
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error in promise:', error.message);
+  //     });
+  // }, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -58,14 +58,14 @@ export default function HomeScreen({ navigation }) {
     }
   };
 
-  async function fetchAccessToken() {
-    try {
-      const token = await getAccessToken();
-      setAccessToken(token);
-    } catch (error) {
-      console.error('Error fetching access token:', error.message);
-    }
-  }
+  // async function fetchAccessToken() {
+  //   try {
+  //     const token = await getAccessToken();
+  //     setAccessToken(token);
+  //   } catch (error) {
+  //     console.error('Error fetching access token:', error.message);
+  //   }
+  // }
 
   async function handlePost(newSong) {
     setSongs((prevSongs) => [newSong, ...prevSongs]);

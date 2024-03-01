@@ -17,7 +17,7 @@ export default function ProfileScreen({ navigation }) {
   const [userId, setUserId] = useState();
   const [userSongs, setUserSongs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [accessToken, setAccessToken] = useState();
+  // const [accessToken, setAccessToken] = useState();
   const [isNewImageModalVisible, setIsNewImageModalVisible] = useState(false);
 
   // const showMenu = () => {
@@ -76,10 +76,10 @@ export default function ProfileScreen({ navigation }) {
   //   }
   // };
   
-  useEffect(() => {
-    fetchUserData();
-    fetchAccessToken();
-  }, []);
+  // useEffect(() => {
+  //   fetchUserData();
+  //   fetchAccessToken();
+  // }, []);
 
   useEffect(() => {
     fetchUserData();
@@ -135,15 +135,16 @@ export default function ProfileScreen({ navigation }) {
       setLoading(false);
     }
   }
+  
 
-  async function fetchAccessToken() {
-    try {
-      const token = await getAccessToken();
-      setAccessToken(token);
-    } catch (error) {
-      console.error('Error fetching access token:', error.message);
-    }
-  }
+  // async function fetchAccessToken() {
+  //   try {
+  //     const token = await getAccessToken();
+  //     setAccessToken(token);
+  //   } catch (error) {
+  //     console.error('Error fetching access token:', error.message);
+  //   }
+  // }
 
   function closeModal() {
     setIsNewImageModalVisible(false);
